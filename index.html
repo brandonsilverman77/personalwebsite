@@ -16,9 +16,36 @@
         line-height: 1.5;
         color: #333;
       }
+      .photo-strip {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 30px;
+      }
+      .photo-strip img {
+        height: 200px;
+        width: auto;
+        object-fit: cover;
+        flex: 1;
+        min-width: 0;
+      }
+      @media (max-width: 500px) {
+        .photo-strip {
+          flex-direction: column;
+        }
+        .photo-strip img {
+          height: auto;
+          width: 100%;
+        }
+      }
     </style>
   </head>
   <body>
+
+    <div class="photo-strip">
+      <img src="images/knight-foundation.jpg" alt="Brandon Silverman speaking at Knight Foundation's Informed conference" />
+      <img src="images/documentary.jpg" alt="Brandon Silverman" />
+      <img src="images/unesco-panel.jpg" alt="Brandon Silverman at UNESCO's Internet for Trust conference" />
+    </div>
 
     <p>I'm Brandon Silverman and these are a few things about me:</p>
     <ul>
