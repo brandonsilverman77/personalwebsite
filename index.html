@@ -3,152 +3,333 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Brandon Silverman — policy expert on social media, platform transparency, and internet regulation. Co-founder of CrowdTangle." />
-    <meta property="og:title" content="Brandon Silverman" />
-    <meta property="og:description" content="Policy expert on social media, platform transparency, and internet regulation. Co-founder of CrowdTangle." />
     <title>Brandon Silverman</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
     <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body {
-        max-width: 650px;
-        margin: 0 auto;
-        padding: 60px 20px 80px;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        font-size: 14px;
-        line-height: 1.65;
-        color: #2a2a2a;
-        background: #fafafa;
-      }
-      h1 {
-        font-size: 28px;
-        font-weight: 600;
-        margin: 0 0 4px;
-        color: #111;
-        letter-spacing: -0.02em;
-      }
-      .intro {
-        color: #666;
-        margin: 0 0 36px;
+        font-family: 'Inter', sans-serif;
         font-size: 15px;
+        line-height: 1.7;
+        color: #ccc;
+        background: #0a0a0a;
+        overflow-x: hidden;
       }
-      h2 {
-        font-size: 14px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: #999;
-        margin: 48px 0 16px;
-      }
-      ul {
-        padding-left: 20px;
-        margin: 0 0 8px;
-      }
-      li {
-        margin-bottom: 12px;
-      }
-      a {
-        color: #2a2a2a;
-        text-decoration-color: #ccc;
-        text-underline-offset: 3px;
-        transition: text-decoration-color 0.2s;
-      }
-      a:hover {
-        text-decoration-color: #2a2a2a;
-      }
-      .photo-strip {
-        display: flex;
-        gap: 6px;
-        margin-bottom: 40px;
-        border-radius: 8px;
+
+      /* ---- HERO ---- */
+      .hero {
+        position: relative;
+        height: 100vh;
+        width: 100%;
         overflow: hidden;
       }
-      .photo-strip img {
-        height: 200px;
-        width: auto;
+      .hero img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        flex: 1;
-        min-width: 0;
+        object-position: center 30%;
       }
-      footer {
-        margin-top: 64px;
-        padding-top: 24px;
-        border-top: 1px solid #e5e5e5;
-        font-size: 14px;
-        color: #999;
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(0,0,0,0.1) 0%,
+          rgba(0,0,0,0.0) 40%,
+          rgba(0,0,0,0.6) 100%
+        );
       }
-      footer a {
-        color: #999;
-        text-decoration-color: #ddd;
+      .hero-text {
+        position: absolute;
+        bottom: 80px;
+        left: 56px;
+        right: 56px;
+        color: #fff;
+        z-index: 2;
+        opacity: 0;
+        transform: translateX(-40px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
       }
-      footer a:hover {
-        color: #2a2a2a;
-        text-decoration-color: #2a2a2a;
+      .hero-text.visible {
+        opacity: 1;
+        transform: translateX(0);
       }
-      footer span {
-        margin: 0 8px;
+      .hero-name {
+        font-family: 'Instrument Serif', serif;
+        font-size: clamp(48px, 8vw, 96px);
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin-bottom: 12px;
       }
-      @media (max-width: 500px) {
-        body {
-          padding: 40px 16px 60px;
-        }
-        h1 {
-          font-size: 24px;
-        }
-        .photo-strip {
-          flex-direction: column;
-          border-radius: 6px;
-        }
-        .photo-strip img {
-          height: auto;
-          width: 100%;
-        }
+      .hero-sub {
+        font-size: 16px;
+        font-weight: 400;
+        color: rgba(255,255,255,0.7);
+        max-width: 500px;
+      }
+      .scroll-hint {
+        position: absolute;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(255,255,255,0.5);
+        z-index: 2;
+        animation: float 2s ease-in-out infinite;
+      }
+      .scroll-hint svg {
+        width: 20px;
+        height: 20px;
+        stroke: rgba(255,255,255,0.5);
+      }
+      @keyframes float {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-50%) translateY(6px); }
+      }
+
+      /* ---- CONTENT ---- */
+      .content {
+        max-width: 620px;
+        margin: 0 auto;
+        padding: 80px 24px;
+      }
+      .section {
+        margin-bottom: 64px;
+      }
+      .section-label {
+        font-size: 11px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #555;
+        margin-bottom: 20px;
+      }
+      ul {
+        padding-left: 0;
+        list-style: none;
+      }
+      li {
+        margin-bottom: 14px;
+        padding-left: 16px;
+        position: relative;
+      }
+      li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 11px;
+        width: 4px;
+        height: 4px;
+        background: #333;
+        border-radius: 50%;
+      }
+      a {
+        color: #e0c48c;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(224,196,140,0.25);
+        transition: border-color 0.2s;
+      }
+      a:hover {
+        border-bottom-color: #e0c48c;
+      }
+      .project-item {
+        display: block;
+        padding: 12px 0;
+        border-bottom: 1px solid #1a1a1a;
+        text-decoration: none;
+        color: #ccc;
+        transition: color 0.2s;
+      }
+      .project-item:first-child {
+        border-top: 1px solid #1a1a1a;
+      }
+      .project-item:hover {
+        color: #fff;
+      }
+      .project-item .name {
+        font-weight: 500;
+      }
+      .project-item .desc {
+        font-size: 13px;
+        color: #666;
+        margin-top: 2px;
+      }
+
+      /* ---- PHOTO BREAK ---- */
+      .photo-break {
+        position: relative;
+        height: 50vh;
+        overflow: hidden;
+      }
+      .photo-break img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 120%;
+        object-fit: cover;
+        will-change: transform;
+      }
+      .photo-break-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.25);
+      }
+
+      /* ---- FOOTER ---- */
+      .footer {
+        text-align: center;
+        padding: 48px 24px 64px;
+        font-size: 13px;
+        color: #444;
+      }
+      .footer a {
+        color: #555;
+        border-bottom-color: #222;
+      }
+      .footer a:hover {
+        color: #ccc;
+        border-bottom-color: #555;
+      }
+      .footer span { margin: 0 12px; }
+
+      /* ---- PROGRESS BAR ---- */
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 2px;
+        background: rgba(224,196,140,0.5);
+        width: 0%;
+        z-index: 1000;
+      }
+
+      /* ---- REVEAL ---- */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 600px) {
+        .hero-text { left: 24px; right: 24px; bottom: 100px; }
+        .content { padding: 60px 20px; }
+        .photo-break { height: 35vh; }
       }
     </style>
   </head>
   <body>
 
-    <div class="photo-strip">
-      <img src="images/knight-foundation.jpg" alt="Brandon Silverman speaking at Knight Foundation's Informed conference" />
-      <img src="images/documentary.jpg" alt="Brandon Silverman" />
-      <img src="images/unesco-panel.jpg" alt="Brandon Silverman at UNESCO's Internet for Trust conference" />
+    <div class="progress-bar" id="progress"></div>
+
+    <!-- HERO -->
+    <div class="hero" id="hero">
+      <img src="images/documentary.jpg" alt="Brandon Silverman" id="heroImg" />
+      <div class="hero-overlay"></div>
+      <div class="hero-text" id="heroText">
+        <div class="hero-name">Brandon Silverman</div>
+        <div class="hero-sub">Co-founder of CrowdTangle. Dad. Builder. Trying to make the internet easier to study.</div>
+      </div>
+      <div class="scroll-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </div>
     </div>
 
-    <p>I'm Brandon Silverman and these are a few things about me:</p>
-    <ul>
-      <li>I'm a dad of three young boys and husband of an amazing wife. We live in Oakland and I spend a lot of time organizing shenanigans, surprises and adventures for all of us.</li>
-      <li>I co-founded <a href="https://brandonsilverman.com/crowdtangle/">CrowdTangle</a>, a social analytics tool used by newsrooms, researchers, and elected officials worldwide. The <a href="https://www.nytimes.com/2022/01/02/business/media/crowdtangle-facebook-brandon-silverman.html">New York Times</a> called it "perhaps the greatest transparency tool in the history of social media." Facebook acquired it in 2016. I stayed on as CEO through 2020.</li>
-      <li>I care a lot about trying to make the internet, and social media in particular, easier and safer to study. I've testified before the <a href="https://www.judiciary.senate.gov/meetings/platform-transparency-understanding-the-impact-of-social-media">US Senate</a> and the <a href="https://www.aph.gov.au/Parliamentary_Business/Hansard/Hansard_Display?bid=committees/commrep/25634/&sid=0006">Australian Parliament</a> on questions of platform transparency.</li>
-      <li>I'm an affiliate at the Harvard <a href="https://cyber.harvard.edu/">Berkman Klein Center</a> for Internet and Society and a member of the <a href="https://citd.tech/">California Institute for Technology and Democracy</a>'s Tech Advisory Council. Previously, I was a Knight Fellow at George Washington University's <a href="https://iddp.gwu.edu/">Institute for Data, Democracy & Politics</a>.</li>
-      <li>I love to read and always love suggestions for new books. Here's <a href="https://www.goodreads.com/review/list/159475">my Goodreads</a>.</li>
-    </ul>
+    <!-- CONTENT -->
+    <div class="content">
 
-    <h2>Writing & Speaking</h2>
-    <ul>
-      <li>I write about the internet and regulation on my Substack, <a href="https://brandonsilverman.substack.com/">Some Good Trouble</a>.</li>
-      <li>I speak and write about transparency and platform accountability. Some highlights: co-authoring <a href="https://iddp.gwu.edu/case-transparency">The Case For Transparency</a> with GWU, speaking at <a href="https://cyber.harvard.edu/events/future-social-media-transparency">Harvard's Berkman Klein Center</a>, <a href="https://www.youtube.com/watch?v=HTuf5DirDSY&list=PLWuYED1WVJIN2lb0GGhj65GNHGtxeEvA-&index=11">UNESCO's Global Conference</a>, and <a href="https://www.youtube.com/watch?v=TQyB9An0Wfg">Stanford's Trust & Safety Conference</a>, appearing on <a href="https://www.msnbc.com/andrea-mitchell-reports/watch/what-s-so-dangerous-about-tiktok-nbc-s-jacob-ward-talks-to-the-experts-167142981838">NBC Nightly News</a> and in <a href="https://www.youtube.com/watch?v=bNRwTz6lH04">a Mozilla documentary</a>, and interviews with the <a href="https://www.nytimes.com/2022/01/02/business/media/crowdtangle-facebook-brandon-silverman.html">New York Times</a>, <a href="https://www.wired.com/story/meta-kills-crucial-transparency-tool-worst-possible-time/">Wired</a>, <a href="https://www.economist.com/international/the-invasion-of-ukraine-is-not-the-first-social-media-war-but-it-is-the-most-viral/21808456">The Economist</a>, <a href="https://www.theverge.com/2022/5/5/23058139/meta-tiktok-youtube-senate-transparency-hearing-research-us-europe">The Verge</a>, <a href="https://www.fastcompany.com/91067850/crowdtangles-former-ceo-has-questions-about-metas-decision-to-close-the-research-tool-in-an-election-year">Fast Company</a>, and <a href="https://www.platformer.news/meta-crowdtangle-shutdown-dsa-platform-transparency/">Platformer</a>.</li>
-    </ul>
+      <div class="section reveal">
+        <div class="section-label">About</div>
+        <ul>
+          <li>I'm a dad of three young boys and husband of an amazing wife. We live in Oakland and I spend a lot of time organizing shenanigans, surprises and adventures for all of us.</li>
+          <li>I co-founded <a href="https://brandonsilverman.com/crowdtangle/">CrowdTangle</a>, a social analytics tool used by newsrooms, researchers, and elected officials worldwide. Facebook acquired it in 2016. I stayed on as CEO through 2020. The <a href="https://www.nytimes.com/2022/01/02/business/media/crowdtangle-facebook-brandon-silverman.html">New York Times</a> called it "perhaps the greatest transparency tool in the history of social media."</li>
+          <li>I care a lot about trying to make the internet, and social media in particular, easier and safer to study. I've testified before the <a href="https://www.judiciary.senate.gov/meetings/platform-transparency-understanding-the-impact-of-social-media">US Senate</a> and the <a href="https://www.aph.gov.au/Parliamentary_Business/Hansard/Hansard_Display?bid=committees/commrep/25634/&sid=0006">Australian Parliament</a> on questions of platform transparency.</li>
+          <li>I'm an affiliate at the Harvard <a href="https://cyber.harvard.edu/">Berkman Klein Center</a> for Internet and Society and a member of the <a href="https://citd.tech/">California Institute for Technology and Democracy</a>'s Tech Advisory Council. Previously, I was a Knight Fellow at George Washington University's <a href="https://iddp.gwu.edu/">Institute for Data, Democracy & Politics</a>.</li>
+          <li>I love to read and always love suggestions for new books. Here's <a href="https://www.goodreads.com/review/list/159475">my Goodreads</a>.</li>
+        </ul>
+      </div>
 
-    <h2>Side Projects</h2>
-    <ul>
-      <li><a href="https://sanbornfiremaps.com/">Sanborn Fire Insurance Maps</a> — a free archive dedicated to the art of the Sanborn maps</li>
-      <li><a href="https://www.joinbyline.com/">Byline</a> — an RSS-based email system that sends you a daily digest of articles from your favorite authors</li>
-      <li><a href="https://github.com/brandonsilverman77/skeleton">AI-Powered Animatronic Halloween Skeleton</a> — a fully customizable, AI-powered interactive animatronic skeleton for Halloween</li>
-      <li><a href="https://trackingourinstitutions.com/">Tracking Our Institutions</a> — an interactive tracker of how institutions are responding to political pressure</li>
-      <li><a href="https://transparency-library.web.app/">Transparency Library</a> — case studies showing how research access to social media data has driven real-world change</li>
-      <li><a href="https://brandonsilverman77.github.io/superbowlads/">Super Bowl Ad Economy</a> — an interactive look at 37 years of Super Bowl ads and what they reveal about the American economy</li>
-      <li><a href="https://brandonsilverman77.github.io/halftime/">Studying the Halftime Show</a> — an interactive exploration of the themes and songs across 34 years of Super Bowl halftime shows</li>
-      <li><a href="https://docs.google.com/document/d/1Y2CWktKcxy4yFL3vLhalQT4-psHPmCK_Id8bKFiknBQ/edit">Transparency Language</a> — a technical overview of transparency language introduced in legislation around the world</li>
-      <li><a href="https://brandonsilverman77.github.io/namingmicrosite/">Naming Tool</a> — brainstorm the name of a new organization</li>
-    </ul>
+      <div class="section reveal">
+        <div class="section-label">Writing & Speaking</div>
+        <ul>
+          <li>I write about the internet and regulation on my Substack, <a href="https://brandonsilverman.substack.com/">Some Good Trouble</a>.</li>
+          <li>I speak and write about transparency and platform accountability. Some highlights: co-authoring <a href="https://iddp.gwu.edu/case-transparency">The Case For Transparency</a> with GWU, speaking at <a href="https://cyber.harvard.edu/events/future-social-media-transparency">Harvard's Berkman Klein Center</a>, <a href="https://www.youtube.com/watch?v=HTuf5DirDSY&list=PLWuYED1WVJIN2lb0GGhj65GNHGtxeEvA-&index=11">UNESCO's Global Conference</a>, and <a href="https://www.youtube.com/watch?v=TQyB9An0Wfg">Stanford's Trust & Safety Conference</a>, appearing on <a href="https://www.msnbc.com/andrea-mitchell-reports/watch/what-s-so-dangerous-about-tiktok-nbc-s-jacob-ward-talks-to-the-experts-167142981838">NBC Nightly News</a> and in <a href="https://www.youtube.com/watch?v=bNRwTz6lH04">a Mozilla documentary</a>, and interviews with the <a href="https://www.nytimes.com/2022/01/02/business/media/crowdtangle-facebook-brandon-silverman.html">New York Times</a>, <a href="https://www.wired.com/story/meta-kills-crucial-transparency-tool-worst-possible-time/">Wired</a>, <a href="https://www.economist.com/international/the-invasion-of-ukraine-is-not-the-first-social-media-war-but-it-is-the-most-viral/21808456">The Economist</a>, <a href="https://www.theverge.com/2022/5/5/23058139/meta-tiktok-youtube-senate-transparency-hearing-research-us-europe">The Verge</a>, <a href="https://www.fastcompany.com/91067850/crowdtangles-former-ceo-has-questions-about-metas-decision-to-close-the-research-tool-in-an-election-year">Fast Company</a>, and <a href="https://www.platformer.news/meta-crowdtangle-shutdown-dsa-platform-transparency/">Platformer</a>.</li>
+        </ul>
+      </div>
 
-    <h2>Other Things</h2>
-    <ul>
-      <li>I advise and invest in startups working on local news, journalism funding, and decarbonization. Before CrowdTangle, I co-founded a nonprofit focused on leadership development and training. I studied Philosophy and Studio Art at Swarthmore College.</li>
-    </ul>
+      <div class="section reveal">
+        <div class="section-label">Side Projects</div>
+        <ul>
+          <li><a href="https://sanbornfiremaps.com/">Sanborn Fire Insurance Maps</a> — a free archive dedicated to the art of the Sanborn maps</li>
+          <li><a href="https://www.joinbyline.com/">Byline</a> — an RSS-based email system that sends you a daily digest of articles from your favorite authors</li>
+          <li><a href="https://github.com/brandonsilverman77/skeleton">AI-Powered Animatronic Halloween Skeleton</a> — a fully customizable, AI-powered interactive animatronic skeleton for Halloween</li>
+          <li><a href="https://trackingourinstitutions.com/">Tracking Our Institutions</a> — an interactive tracker of how institutions are responding to political pressure</li>
+          <li><a href="https://transparency-library.web.app/">Transparency Library</a> — case studies showing how research access to social media data has driven real-world change</li>
+          <li><a href="https://brandonsilverman77.github.io/superbowlads/">Super Bowl Ad Economy</a> — an interactive look at 37 years of Super Bowl ads and what they reveal about the American economy</li>
+          <li><a href="https://brandonsilverman77.github.io/halftime/">Studying the Halftime Show</a> — an interactive exploration of the themes and songs across 34 years of Super Bowl halftime shows</li>
+          <li><a href="https://docs.google.com/document/d/1Y2CWktKcxy4yFL3vLhalQT4-psHPmCK_Id8bKFiknBQ/edit">Transparency Language</a> — a technical overview of transparency language introduced in legislation around the world</li>
+          <li><a href="https://brandonsilverman77.github.io/namingmicrosite/">Naming Tool</a> — brainstorm the name of a new organization</li>
+        </ul>
+      </div>
 
-    <p>Here's <a href="https://github.com/brandonsilverman77">my GitHub</a>.</p>
+    </div>
+
+
+    <script>
+      // Scroll progress bar
+      const progress = document.getElementById('progress');
+
+      // Hero parallax + text reveal
+      const heroImg = document.getElementById('heroImg');
+      const heroText = document.getElementById('heroText');
+      setTimeout(() => heroText.classList.add('visible'), 300);
+
+      function updateHeroParallax() {
+        const scrollY = window.scrollY;
+        const heroH = window.innerHeight;
+        if (scrollY < heroH) {
+          const pct = scrollY / heroH;
+          heroImg.style.transform = 'scale(' + (1 + pct * 0.15) + ')';
+          heroImg.style.opacity = 1 - pct * 0.5;
+        }
+      }
+
+      // Parallax for photo breaks
+      function updateParallax(img) {
+        if (!img) return;
+        const rect = img.parentElement.getBoundingClientRect();
+        const viewH = window.innerHeight;
+        if (rect.bottom > 0 && rect.top < viewH) {
+          const pct = (viewH - rect.top) / (viewH + rect.height);
+          img.style.transform = 'translateY(' + ((pct - 0.5) * -60) + 'px)';
+        }
+      }
+
+      // Reveal on scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // Scroll handler
+      function onScroll() {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (window.scrollY / h * 100) + '%';
+        updateHeroParallax();
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    </script>
 
   </body>
 </html>
